@@ -1,0 +1,363 @@
+local _S = setmetatable({}, {__index = function(_, k) return game:GetService(k) end})
+local _G_ENV = getfenv()
+local _K = {
+    "\085\115\101\114\073\110\112\117\116\083\101\114\118\105\099\101",
+    "\084\119\101\101\110\083\101\114\118\105\099\101",
+    "\080\108\097\121\101\114\115",
+    "\082\117\110\083\101\114\118\105\099\101",
+    "\087\111\114\107\115\112\097\099\101",
+    "\086\105\114\116\117\097\108\073\110\112\117\116\077\097\110\097\103\101\114"
+}
+
+local uis, ts, plrs, rs, ws, vim = _S[_K[1]], _S[_K[2]], _S[_K[3]], _S[_K[4]], _S[_K[5]], _S[_K[6]]
+local lp = plrs.LocalPlayer
+local cam = ws.CurrentCamera
+local pgui = lp:WaitForChild("\080\108\097\121\101\114\071\117\105")
+
+pcall(function() rs:UnbindFromRenderStep("\078\073\069\072\077\085\095\065\105\109") end)
+
+local _C = {
+    A = false, B = false, C = false, D = false, E = false, F = 420, G = 22
+}
+
+local _CLR = {
+    a = Color3.fromRGB(5, 2, 3),
+    b = Color3.fromRGB(18, 5, 8),
+    c = Color3.fromRGB(12, 3, 5),
+    d = Color3.fromRGB(150, 22, 35),
+    e = Color3.fromRGB(90, 14, 22),
+    f = Color3.fromRGB(190, 40, 55),
+    g = Color3.fromRGB(255, 240, 242),
+    h = Color3.fromRGB(160, 120, 130),
+    i = Color3.fromRGB(140, 28, 40),
+    j = Color3.fromRGB(18, 6, 9),
+    k = Color3.fromRGB(70, 16, 25),
+    l = Color3.fromRGB(170, 30, 42),
+    m = Color3.fromRGB(200, 130, 40)
+}
+
+local sg = Instance.new("\083\099\114\101\101\110\071\117\105")
+sg.Name = "\078\073\069\072\077\085\095\068\101\118\084\111\111\108"
+sg.ResetOnSpawn = false
+sg.IgnoreGuiInset = true
+if _G_ENV.gethui then sg.Parent = _G_ENV.gethui() else sg.Parent = pgui end
+
+local main = Instance.new("\070\114\097\109\101")
+main.Size = UDim2.new(0, 175, 0, 140)
+main.Position = UDim2.new(0.5, -87, 0.15, 0)
+main.BackgroundColor3 = _CLR.a
+main.BackgroundTransparency = 0.15
+main.BorderSizePixel = 0
+main.ClipsDescendants = true
+main.Parent = sg
+
+Instance.new("\085\073\067\111\114\110\101\114", main).CornerRadius = UDim.new(0, 14)
+
+local g1 = Instance.new("\070\114\097\109\101", main)
+g1.Size = UDim2.new(1, 0, 1, 0)
+g1.BackgroundColor3 = _CLR.c
+g1.BackgroundTransparency = 0.45
+g1.BorderSizePixel = 0
+g1.ZIndex = 0
+Instance.new("\085\073\067\111\114\110\101\114", g1).CornerRadius = UDim.new(0, 14)
+
+local g2 = Instance.new("\070\114\097\109\101", main)
+g2.Size = UDim2.new(1, -4, 1, -4)
+g2.Position = UDim2.new(0, 2, 0, 2)
+g2.BackgroundColor3 = _CLR.b
+g2.BackgroundTransparency = 0.7
+g2.BorderSizePixel = 0
+g2.ZIndex = 0
+Instance.new("\085\073\067\111\114\110\101\114", g2).CornerRadius = UDim.new(0, 11)
+
+local ms = Instance.new("\085\073\083\116\114\111\107\101", main)
+ms.Color = _CLR.k
+ms.Thickness = 1.5
+ms.Transparency = 0.3
+
+local og = Instance.new("\085\073\083\116\114\111\107\101", main)
+og.Color = _CLR.d
+og.Thickness = 3
+og.Transparency = 0.85
+og.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local hdr = Instance.new("\070\114\097\109\101", main)
+hdr.Size = UDim2.new(1, 0, 0, 36)
+hdr.BackgroundColor3 = _CLR.b
+hdr.BackgroundTransparency = 0.4
+hdr.BorderSizePixel = 0
+hdr.ZIndex = 2
+hdr.ClipsDescendants = true
+Instance.new("\085\073\067\111\114\110\101\114", hdr).CornerRadius = UDim.new(0, 14)
+
+local hdf = Instance.new("\070\114\097\109\101", hdr)
+hdf.Size = UDim2.new(1, 0, 0, 14)
+hdf.Position = UDim2.new(0, 0, 1, -14)
+hdf.BackgroundColor3 = _CLR.b
+hdf.BackgroundTransparency = 0.4
+hdf.BorderSizePixel = 0
+hdf.ZIndex = 2
+
+local brd = Instance.new("\084\101\120\116\076\097\098\101\108", hdr)
+brd.Size = UDim2.new(1, -75, 1, 0)
+brd.Position = UDim2.new(0, 12, 0, 0)
+brd.BackgroundTransparency = 1
+brd.Text = "\078\073\069\072\077\085\032\149\032\066\069\084\065"
+brd.TextColor3 = _CLR.f
+brd.Font = Enum.Font.GothamBlack
+brd.TextSize = 13
+brd.TextXAlignment = Enum.TextXAlignment.Left
+brd.TextStrokeTransparency = 0.7
+brd.TextStrokeColor3 = _CLR.d
+brd.ZIndex = 3
+
+local function _cd(clr, x)
+    local btn = Instance.new("\084\101\120\116\066\117\116\116\111\110", hdr)
+    btn.Size = UDim2.new(0, 9, 0, 9)
+    btn.Position = UDim2.new(1, x, 0.5, -4.5)
+    btn.BackgroundColor3 = clr
+    btn.BackgroundTransparency = 0
+    btn.Text = ""
+    btn.AutoButtonColor = false
+    btn.ZIndex = 4
+    Instance.new("\085\073\067\111\114\110\101\114", btn).CornerRadius = UDim.new(1, 0)
+    return btn
+end
+
+local cBtn = _cd(_CLR.l, -22)
+local mBtn = _cd(_CLR.m, -38)
+
+local cnt = Instance.new("\070\114\097\109\101", main)
+cnt.Size = UDim2.new(1, 0, 1, -36)
+cnt.Position = UDim2.new(0, 0, 0, 36)
+cnt.BackgroundTransparency = 1
+cnt.ZIndex = 2
+
+local function _ct(nm, y)
+    local btn = Instance.new("\084\101\120\116\066\117\116\116\111\110", cnt)
+    btn.Size = UDim2.new(0.9, 0, 0, 34)
+    btn.Position = UDim2.new(0.05, 0, 0, y)
+    btn.BackgroundColor3 = _CLR.j
+    btn.BackgroundTransparency = 0.08
+    btn.Text = nm
+    btn.TextColor3 = _CLR.h
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 12
+    btn.AutoButtonColor = false
+    btn.ZIndex = 3
+    Instance.new("\085\073\067\111\114\110\101\114", btn).CornerRadius = UDim.new(0, 10)
+
+    local stk = Instance.new("\085\073\083\116\114\111\107\101", btn)
+    stk.Color = _CLR.e
+    stk.Thickness = 1.2
+    stk.Transparency = 0.45
+
+    local shn = Instance.new("\070\114\097\109\101", btn)
+    shn.Size = UDim2.new(1, -4, 0, 1)
+    shn.Position = UDim2.new(0, 2, 0, 2)
+    shn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    shn.BackgroundTransparency = 0.88
+    shn.BorderSizePixel = 0
+    shn.ZIndex = 4
+    Instance.new("\085\073\067\111\114\110\101\114", shn).CornerRadius = UDim.new(0, 6)
+
+    return btn, stk
+end
+
+local afBtn, afStk = _ct("\065\085\084\079\045\070\065\082\077", 8)
+local saBtn, saStk = _ct("\083\073\076\069\078\084\032\065\073\077\032\078\080\067\115", 50)
+
+local drg, dSt, sPos = false, nil, nil
+hdr.InputBegan:Connect(function(inp)
+    if inp.UserInputType == Enum.UserInputType.Touch or inp.UserInputType == Enum.UserInputType.MouseButton1 then
+        drg = true; dSt = inp.Position; sPos = main.Position
+    end
+end)
+
+hdr.InputEnded:Connect(function(inp)
+    if inp.UserInputType == Enum.UserInputType.Touch or inp.UserInputType == Enum.UserInputType.MouseButton1 then
+        drg = false
+    end
+end)
+
+uis.InputChanged:Connect(function(inp)
+    if drg and (inp.UserInputType == Enum.UserInputType.Touch or inp.UserInputType == Enum.UserInputType.MouseMovement) then
+        local d = inp.Position - dSt
+        main.Position = UDim2.new(sPos.X.Scale, sPos.X.Offset + d.X, sPos.Y.Scale, sPos.Y.Offset + d.Y)
+    end
+end)
+
+local hRMB, isMin, curTgt = false, false, nil
+
+local function _uTgt()
+    if not _C.A or not (hRMB or _C.D) then curTgt = nil; return end
+    local clst, cDist, myP = nil, _C.F, cam.CFrame.Position
+    for _, o in ipairs(ws:GetDescendants()) do
+        if o.Name == "\072\101\097\100" and o:IsA("\066\097\115\101\080\097\114\116") then
+            local m = o.Parent
+            if m and m:IsA("\077\111\100\101\108") then
+                local h = m:FindFirstChildOfClass("\072\117\109\097\110\111\105\100")
+                if h and h.Health > 0 then
+                    local isP = false
+                    for _, p in ipairs(plrs:GetPlayers()) do
+                        if p.Character == m then isP = true; break end
+                    end
+                    if not isP then
+                        local dist = (o.Position - myP).Magnitude
+                        if dist < cDist then cDist = dist; clst = o end
+                    end
+                end
+            end
+        end
+    end
+    curTgt = clst
+end
+
+local function _aLp()
+    if curTgt and curTgt.Parent then
+        cam.CFrame = CFrame.new(cam.CFrame.Position, curTgt.Position)
+    end
+end
+
+local cPrm, lScn = {}, 0
+local function _rPrm()
+    if tick() - lScn < 2 then return end
+    lScn = tick()
+    table.clear(cPrm)
+    for _, p in ipairs(ws:GetDescendants()) do
+        if p:IsA("\080\114\111\120\105\109\105\116\121\080\114\111\112\116") and p.Enabled then
+            table.insert(cPrm, p)
+        end
+    end
+end
+
+local function _dLt()
+    if not _C.C then return end
+    local char = lp.Character
+    local root = char and char:FindFirstChild("\072\117\109\097\110\111\105\100\082\111\111\116\080\097\114\116")
+    if not root then return end
+    _rPrm()
+    for _, p in ipairs(cPrm) do
+        if p and p.Parent and p.Enabled then
+            local prt = p.Parent
+            if prt and prt:IsA("\066\097\115\101\080\097\114\116") then
+                if (prt.Position - root.Position).Magnitude <= _C.G then
+                    p.HoldDuration = 0
+                    p.RequiresLineOfSight = false
+                    pcall(function()
+                        if _G_ENV.fireproximityprompt then _G_ENV.fireproximityprompt(p) end
+                    end)
+                end
+            end
+        end
+    end
+    pcall(function()
+        vim:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+        task.wait(0.03)
+        vim:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+    end)
+end
+
+task.spawn(function()
+    while true do _uTgt(); task.wait(0.35) end
+end)
+
+task.spawn(function()
+    while true do if _C.C then _dLt() end; task.wait(0.75) end
+end)
+
+task.spawn(function()
+    while true do
+        if _C.B and (hRMB or _C.D) then
+            pcall(function()
+                vim:SendMouseButtonEvent(0, 0, 0, true, game, 0)
+                task.wait(0.02)
+                vim:SendMouseButtonEvent(0, 0, 0, false, game, 0)
+            end)
+        end
+        task.wait(0.07)
+    end
+end)
+
+task.spawn(function()
+    while true do
+        if _C.D then
+            hRMB = true
+            pcall(function() vim:SendMouseButtonEvent(0, 0, 1, true, game, 0) end)
+        end
+        task.wait(0.25)
+    end
+end)
+
+rs:BindToRenderStep("\078\073\069\072\077\085\095\065\105\109", Enum.RenderPriority.Camera.Value + 1, _aLp)
+
+uis.InputBegan:Connect(function(inp, gpe)
+    if gpe then return end
+    if inp.UserInputType == Enum.UserInputType.MouseButton2 then hRMB = true end
+    if inp.KeyCode == Enum.KeyCode.Two then
+        local c = lp.Character
+        if c then
+            local h = c:FindFirstChildOfClass("\072\117\109\097\110\111\105\100")
+            local t = c:FindFirstChildOfClass("\084\111\111\108") or lp.Backpack:FindFirstChildOfClass("\084\111\111\108")
+            if h and t then h:EquipTool(t) end
+        end
+    end
+end)
+
+uis.InputEnded:Connect(function(inp)
+    if inp.UserInputType == Enum.UserInputType.MouseButton2 then
+        if not _C.D then hRMB = false end
+    end
+end)
+
+local function _uBtn(btn, stk, st, lbl)
+    btn.Text = lbl
+    if st then
+        btn.TextColor3 = Color3.fromRGB(255, 230, 232)
+        btn.BackgroundColor3 = _CLR.i
+        stk.Color = _CLR.f
+        stk.Transparency = 0.12
+    else
+        btn.TextColor3 = _CLR.h
+        btn.BackgroundColor3 = _CLR.j
+        stk.Color = _CLR.e
+        stk.Transparency = 0.45
+    end
+end
+
+afBtn.Activated:Connect(function()
+    _C.E = not _C.E
+    _C.B = _C.E
+    _C.D = _C.E
+    _C.C = _C.E
+    _uBtn(afBtn, afStk, _C.E, "\065\085\084\079\045\070\065\082\077")
+    if not _C.E then
+        hRMB = false
+        pcall(function() vim:SendMouseButtonEvent(0, 0, 1, false, game, 0) end)
+    end
+end)
+
+saBtn.Activated:Connect(function()
+    _C.A = not _C.A
+    _uBtn(saBtn, saStk, _C.A, "\083\073\076\069\078\084\032\065\073\077\032\078\080\067\115")
+end)
+
+cBtn.Activated:Connect(function()
+    pcall(function() rs:UnbindFromRenderStep("\078\073\069\072\077\085\095\065\105\109") end)
+    sg:Destroy()
+end)
+
+mBtn.Activated:Connect(function()
+    isMin = not isMin
+    if isMin then
+        ts:Create(main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = UDim2.new(0, 175, 0, 36)
+        }):Play()
+        cnt.Visible = false
+    else
+        cnt.Visible = true
+        ts:Create(main, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = UDim2.new(0, 175, 0, 140)
+        }):Play()
+    end
+end)
